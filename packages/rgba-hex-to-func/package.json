@@ -1,0 +1,39 @@
+{
+  "name": "rgba-hex-to-func",
+  "version": "0.1.0",
+  "description": "Converts any rgba hex values to IE11 compliant rgba() functions",
+  "keywords": [
+    "ie11",
+    "stylis",
+    "css"
+  ],
+  "author": "Justin Hanselman <hanseltime@gmail.com>",
+  "homepage": "",
+  "license": "ISC",
+  "main": "index.js",
+  "directories": {
+    "lib": "src",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "test": "jest"
+  },
+  "dependencies": {
+    "jest": "^26.6.3",
+    "typescript": "^4.2.4"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.14.0",
+    "@babel/preset-env": "^7.14.1",
+    "@babel/preset-typescript": "^7.13.0",
+    "@types/jest": "^26.0.23",
+    "@types/stylis": "^4.0.0",
+    "babel-jest": "^26.6.3",
+    "jest": "^26.6.3",
+    "prettier": "^2.2.1",
+    "stylis": "^4.0.10"
+  }
+}
