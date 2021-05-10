@@ -4,7 +4,9 @@ import createRGBAHexToFuncMiddleware from '../src';
 import { serialize, compile, middleware, stringify } from 'stylis'
 import prettier from 'prettier'
 
-const formatCss = css => prettier.format(css, { parser: 'css' })
+function formatCss(css: string) : string {
+    return prettier.format(css, { parser: 'css' });
+}
 
 const colorWhiteHex = '#FFFFFFFF';
 const colorWhiteHalfHex = '#FFFFFF7F';

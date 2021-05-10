@@ -5,7 +5,7 @@
   "useWorkspaces": true,
   "command": {
     "publish": {
-      "registry": "localhost:4873"
+      "registry": "http://localhost:4873"
     }
   }
 }

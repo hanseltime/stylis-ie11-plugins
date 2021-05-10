@@ -1,0 +1,4 @@
+
+export function cssVarsRevert() {
+    // TODO
+}

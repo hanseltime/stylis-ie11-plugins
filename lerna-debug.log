@@ -1,0 +1,57 @@
+0 silly argv {
+0 silly argv   _: [ 'publish' ],
+0 silly argv   push: false,
+0 silly argv   composed: 'publish',
+0 silly argv   lernaVersion: '4.0.0',
+0 silly argv   '$0': 'C:\\Program Files\\nodejs\\node_modules\\lerna\\cli.js'
+0 silly argv }
+1 notice cli v4.0.0
+2 verbose rootPath C:\Users\HanseltimeIndustries\Documents\stylis-ie11-plugins
+3 info versioning independent
+4 verbose session d005d3e0e4cb6c4a
+5 verbose user-agent lerna/4.0.0/node@v16.0.0+x64 (win32)
+6 silly argv {
+6 silly argv   _: [ 'publish' ],
+6 silly argv   push: false,
+6 silly argv   composed: 'publish',
+6 silly argv   lernaVersion: '4.0.0'
+6 silly argv }
+7 verbose rootPath C:\Users\HanseltimeIndustries\Documents\stylis-ie11-plugins
+8 silly isAnythingCommitted
+9 verbose isAnythingCommitted 1
+10 silly getCurrentBranch
+11 verbose currentBranch master
+12 silly hasTags
+13 verbose hasTags false
+14 info Assuming all packages changed
+15 verbose updated rgba-hex-to-func
+16 verbose git-describe undefined => "b6208b7"
+17 silly git-describe parsed => {"refCount":"2","sha":"b6208b7","isDirty":false}
+18 info execute Skipping git push
+19 info execute Skipping releases
+20 silly lifecycle No script for "preversion" in "root", continuing
+21 silly lifecycle No script for "preversion" in "rgba-hex-to-func", continuing
+22 silly lifecycle No script for "version" in "rgba-hex-to-func", continuing
+23 silly lifecycle No script for "version" in "root", continuing
+24 silly gitAdd [ 'packages/rgba-hex-to-func/package.json' ]
+25 silly gitCommit Publish
+25 silly gitCommit
+25 silly gitCommit  - rgba-hex-to-func@0.1.2
+26 verbose git [
+26 verbose git   'commit',
+26 verbose git   '-F',
+26 verbose git   'C:\\Users\\HANSEL~1\\AppData\\Local\\Temp\\bdc3774c-6c4b-492c-b936-adb3cd3adc12\\lerna-commit.txt'
+26 verbose git ]
+27 silly gitTag rgba-hex-to-func@0.1.2
+28 verbose git [ 'tag', 'rgba-hex-to-func@0.1.2', '-m', 'rgba-hex-to-func@0.1.2' ]
+29 silly lifecycle No script for "postversion" in "rgba-hex-to-func", continuing
+30 silly lifecycle No script for "postversion" in "root", continuing
+31 info publish Publishing packages to npm...
+32 notice Skipping all user and access validation due to third-party registry
+33 notice Make sure you're authenticated properly ¯\_(ツ)_/¯
+34 warn ENOLICENSE Package rgba-hex-to-func is missing a license.
+34 warn ENOLICENSE One way to fix this is to add a LICENSE.md file to the root of this repository.
+34 warn ENOLICENSE See https://choosealicense.com for additional guidance.
+35 silly getCurrentSHA
+36 verbose getCurrentSHA 2e8eddb85e7e6c76331da21a0bec253f6cba83aa
+37 error

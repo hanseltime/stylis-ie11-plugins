@@ -1,7 +1,7 @@
 import { Middleware, Element, DECLARATION } from 'stylis';
 
-type CssPropertyMatchFcn = (propertyName: string) => boolean;
-type ApplyWhenFcn = () => boolean
+declare type CssPropertyMatchFcn = (propertyName: string) => boolean;
+declare type ApplyWhenFcn = () => boolean
 
 export interface PluginOptions {
     // An array of string properties
@@ -76,7 +76,7 @@ function stripQuotes(quoteStr: string) {
  * for rgba hex value notations and will change them to rgba() function notation
  * 
  */
-export default function createRGBAHexToFuncPlugin(options: PluginOptions) : Middleware {
+export default function createRGBAHexToFuncPlugin(options?: PluginOptions) : Middleware {
 
     let cssPropertiesMatchFcn : CssPropertyMatchFcn = defaultMatchFcn;
     if (options?.cssPropertyMatch) {
@@ -93,7 +93,7 @@ export default function createRGBAHexToFuncPlugin(options: PluginOptions) : Midd
 
     return (element: Element) : void => {
         if (element.type === DECLARATION) {
-            if (options.applyWhen && !options.applyWhen()) return;
+            if (options?.applyWhen && !options.applyWhen()) return;
             if (element.props && cssPropertiesMatchFcn(stripQuotes(element.props as string))) {
                 if (typeof element.children === 'string') {
                     const rgbaHexes = element.children.match(rgbaHexRegex);
