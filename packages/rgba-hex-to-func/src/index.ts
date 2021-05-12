@@ -87,10 +87,6 @@ export default function createRGBAHexToFuncPlugin(options?: PluginOptions) : Mid
         }
     }
 
-    if (options?.applyWhen) {
-
-    }
-
     return (element: Element) : void => {
         if (element.type === DECLARATION) {
             if (options?.applyWhen && !options.applyWhen()) return;

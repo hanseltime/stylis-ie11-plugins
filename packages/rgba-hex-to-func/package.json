@@ -1,16 +1,21 @@
 {
   "name": "rgba-hex-to-func",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Converts any rgba hex values to IE11 compliant rgba() functions",
   "keywords": [
     "ie11",
     "stylis",
-    "css"
+    "css",
+    "emotionjs"
   ],
-  "author": "Justin Hanselman <hanseltime@gmail.com>",
-  "homepage": "https://github.com/hanseltime/stylis-ie11-plugins#readme",
+  "author": {
+    "name": "Justin Hanselman",
+    "url": "https://github.com/hanseltime"
+  },
+  "homepage": "https://github.com/hanseltime/stylis-ie11-plugins/tree/master/packages/rgba-hex-to-func#readme",
   "license": "ISC",
   "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "directories": {
     "lib": "src",
     "test": "__tests__"

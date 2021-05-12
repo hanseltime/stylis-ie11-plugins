@@ -5,7 +5,7 @@
   "useWorkspaces": true,
   "command": {
     "publish": {
-      "registry": "http://localhost:4873"
+      "ignoreChanges": ["**/__tests__/**", "**/jest.config.js", "*.md"]
     }
   }
 }

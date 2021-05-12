@@ -1,16 +1,21 @@
 {
   "name": "css-vars-revert",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Stylis plugin to revert any css variables that might be present (mainly in need of supporting ie11)",
   "keywords": [
     "ie11",
     "css",
-    "stylis"
+    "stylis",
+    "emotionjs"
   ],
-  "author": "Justin Hanselman <hanseltime@gmail.com>",
-  "homepage": "https://github.com/hanseltime/stylis-ie11-plugins#readme",
+  "author": {
+    "name": "Justin Hanselman",
+    "url": "https://github.com/hanseltime"
+  },
+  "homepage": "https://github.com/hanseltime/stylis-ie11-plugins/tree/master/packages/css-vars-revert#readmee",
   "license": "ISC",
   "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "directories": {
     "lib": "src",
     "test": "__tests__"

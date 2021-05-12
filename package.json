@@ -1,6 +1,10 @@
 {
   "name": "root",
   "private": true,
+  "author": {
+    "name": "Justin Hanselman",
+    "url": "https://github.com/hanseltime"
+  },
   "scripts": {
     "bootstrap": "lerna bootstrap",
     "build": "npm run bootstrap && lerna exec -- npm run build",
