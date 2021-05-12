@@ -1,6 +1,6 @@
 {
   "name": "rgba-hex-to-func",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Converts any rgba hex values to IE11 compliant rgba() functions",
   "keywords": [
     "ie11",
