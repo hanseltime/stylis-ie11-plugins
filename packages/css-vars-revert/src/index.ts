@@ -1,14 +1,19 @@
-import { DECLARATION, RULESET, Element } from 'stylis';
+import { DECLARATION, RULESET, Element, compile, middleware, serialize, stringify } from 'stylis';
 
 declare type ApplyWhenFcn = () => boolean;
 declare type VarValueMap = Map<string, string>;
 
 const cssVarRegex = /--[a-zA-Z0-9_-]+/;
+const cssVarDeclRegex = /--[a-zA-Z0-9_-]+\s*:/;
 const cssVarFncRegex = /var\(\s*(--[a-zA-Z0-9_-]+)\s*\)\s*/;
+
+const isBrowser = typeof window !== 'undefined';
 
 export interface PluginOptions {
     // An array of string properties
     applyWhen?: ApplyWhenFcn;
+    // If true, this will search for css variables in the document at the time of calling this middleware
+    searchDocument?: boolean;
 }
 
 function defaultApplyWhen() : boolean {
@@ -57,12 +62,13 @@ export default function createCssVarsRevert(options?: PluginOptions) {
                 }
             }
             if (!found) {
+                // TODO: lazy load missing values
                 console.error(`Undeclared css var: ${varFnc[1]} with parents: ${element.parent?.value}`);
             }
         }
     }
 
-    return (element: Element) : void => {
+    let innerPlugin = (element: Element) => {
         if (element.type === DECLARATION) {
             if (!applyWhen()) return;
             if (element.props) {
@@ -82,7 +88,27 @@ export default function createCssVarsRevert(options?: PluginOptions) {
                     tryCssVarSubstitute(element);
                 }
             }
-
         }
+    };
+
+    const shouldSearchDocForVars = options?.searchDocument ?? true;
+    let firstPass = true;
+    function tryGetOptionsFromDocument() {
+        if (firstPass) {
+            if (isBrowser && shouldSearchDocForVars && firstPass) {
+                // Since the browser doesn't re-apply the css vars, we parse the innerHTML of style tags
+                Array.prototype.forEach.call(document.getElementsByTagName('style'), function(styleEl) {
+                    if (styleEl.innerHTML.match(cssVarDeclRegex)) {
+                    serialize(compile(styleEl.innerHTML), middleware([innerPlugin, stringify]));
+                    }
+                });
+            }
+        }
+        firstPass = false;
+    }
+
+    return (element: Element) : void => {
+        tryGetOptionsFromDocument();
+        innerPlugin(element);
     };
 }
