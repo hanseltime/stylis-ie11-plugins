@@ -46,5 +46,6 @@
     "stylis": "^4.0.10",
     "ts-jest": "^26.5.6",
     "typescript": "^4.2.4"
-  }
+  },
+  "gitHead": "28d893b2bf5bbfb967eabbc475d275cc6828e5d7"
 }
