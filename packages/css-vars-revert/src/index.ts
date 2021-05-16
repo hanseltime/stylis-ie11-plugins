@@ -1,4 +1,4 @@
-import { DECLARATION, RULESET, Element, compile, middleware, serialize, stringify } from 'stylis';
+import { DECLARATION, RULESET, Element, compile, middleware, serialize, stringify, Middleware } from 'stylis';
 
 declare type ApplyWhenFcn = () => boolean;
 declare type VarValueMap = Map<string, string>;
@@ -20,7 +20,7 @@ function defaultApplyWhen() : boolean {
     return typeof window !== 'undefined' && !window?.CSS?.supports?.('color', 'var(--fake-var)');
 }
 
-export default function createCssVarsRevert(options?: PluginOptions) {
+export default function createCssVarsRevert(options?: PluginOptions) : Middleware {
     const applyWhen = options?.applyWhen ?? defaultApplyWhen;
 
     // Variable tracking maps
@@ -31,7 +31,7 @@ export default function createCssVarsRevert(options?: PluginOptions) {
         const selectors = [];
         if (parent && parent.type === RULESET) {
             chakraVarsScopes.forEach((scope) => {
-                const parentValues = parent.value.split(',');
+                const parentValues : string[] = parent.props as string[];
                 parentValues.forEach((parentValue) => {
                     // Perhaps not comprehensive - if starts with scope, then assume it applies
                     if (parentValue.startsWith(scope)) {
@@ -68,7 +68,7 @@ export default function createCssVarsRevert(options?: PluginOptions) {
         }
     }
 
-    let innerPlugin = (element: Element) => {
+    let innerPlugin = (element: Element, index: number, children: Array<Element | string>, callback: Middleware) : void => {
         if (element.type === DECLARATION) {
             if (!applyWhen()) return;
             if (element.props) {
@@ -88,6 +88,9 @@ export default function createCssVarsRevert(options?: PluginOptions) {
                     tryCssVarSubstitute(element);
                 }
             }
+        } else if (element.type === RULESET) {
+            // Note: this is necessary to do nested drilling - see stylis strigify plugin
+            serialize(element.children as any, callback);
         }
     };
 
@@ -99,7 +102,7 @@ export default function createCssVarsRevert(options?: PluginOptions) {
                 // Since the browser doesn't re-apply the css vars, we parse the innerHTML of style tags
                 Array.prototype.forEach.call(document.getElementsByTagName('style'), function(styleEl) {
                     if (styleEl.innerHTML.match(cssVarDeclRegex)) {
-                    serialize(compile(styleEl.innerHTML), middleware([innerPlugin, stringify]));
+                    serialize(compile(styleEl.innerHTML), middleware([innerPlugin]));
                     }
                 });
             }
@@ -107,8 +110,8 @@ export default function createCssVarsRevert(options?: PluginOptions) {
         firstPass = false;
     }
 
-    return (element: Element) : void => {
+    return (element: Element, index: number, children: Array<Element | string>, callback: Middleware ) : void => {
         tryGetOptionsFromDocument();
-        innerPlugin(element);
+        innerPlugin(element, index, children, callback);
     };
 }
