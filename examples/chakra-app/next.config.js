@@ -62,7 +62,6 @@ const withTranspileModules = require('next-transpile-modules')([
 
 const nextConfig = {
     webpack: (config, options) => {
-        console.log("In this method Fam");
         const originalEntry = config.entry;
         config.entry = async () => {
             const entries = await originalEntry();

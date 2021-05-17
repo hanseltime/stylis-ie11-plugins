@@ -185,7 +185,7 @@ test('Transform default inputs', () => {
     expect(formatCss(value2)).toBe(formatCss(expectedCss2));
   });
 
-  describe('Tests for when the css variables are passed through stylus', () => {
+  describe('Tests for when the css variables are not passed through stylus', () => {
       beforeEach(() => {
           window.document.head.innerHTML = "";
           window.document.body.innerHTML = "";

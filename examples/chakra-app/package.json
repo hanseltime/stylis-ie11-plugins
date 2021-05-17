@@ -5,15 +5,25 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "export": "next export",
+    "static-serve": "http-server ./out"
   },
   "dependencies": {
     "@chakra-ui/react": "^1.6.1",
     "@emotion/react": "^11.4.0",
     "@emotion/styled": "^11.3.0",
+    "css-vars-revert": "^1.0.2",
     "framer-motion": "^4.1.16",
     "next": "10.2.0",
+    "next-compose-plugins": "^2.2.1",
+    "next-transpile-modules": "^7.0.0",
     "react": "17.0.2",
-    "react-dom": "17.0.2"
+    "react-dom": "17.0.2",
+    "rgba-hex-to-func": "^1.0.1",
+    "stylis": "^4.0.10"
+  },
+  "devDependencies": {
+    "http-server": "^0.12.3"
   }
 }
