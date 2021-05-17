@@ -1307,8 +1307,8 @@ css-box-model@1.2.1:
 
 css-vars-revert@^1.0.2:
   version "1.0.2"
-  resolved "http://localhost:4873/css-vars-revert/-/css-vars-revert-1.0.2.tgz#632c887636235a4f4038d685b28596928ba8f97c"
-  integrity sha512-KaklvX6jDFUfQpAPE0b79hT6XdIBtkiWnYOulHclpRr+vvwpjOJxnlO+t13qCojS9MIEDjpqkN8IbL3V3jJhJg==
+  resolved "https://registry.yarnpkg.com/css-vars-revert/-/css-vars-revert-1.0.2.tgz#d08d05fed65e33750df805298d6a4164743377d5"
+  integrity sha512-vpbdhu97s9xSdUqiX1jQR0kX3vyZ9fEOUQoJSz6wCtVcPCayKakTufpc7l3WezAzWWQr+IXaUzcAd5enLjPrhg==
 
 css.escape@1.5.1:
   version "1.5.1"
