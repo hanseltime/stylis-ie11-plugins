@@ -1,6 +1,6 @@
 # `css-vars-revert`
 
-Stylis v4 plugin to convert revert and CSS var usages back to their inline values.  This plugin came about from a desire to use
+Stylis v4 plugin to revert any CSS var usages back to their inline values.  This plugin came about from a desire to use
 charkra-ui with IE11, which does not support the CSS variables.  
 
 Note 1: this plugin exists to remove an optimization for chakra-ui, with the understanding that supporting your IE11 user base is important.
