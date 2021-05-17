@@ -7,7 +7,7 @@ Note 1: this plugin exists to remove an optimization for chakra-ui, with the und
 
 ### How it works
 
-The solution put forth by this plugin, assumes that the css variable declarations will be passed through the same stylis processor BEFORE
+The solution put forth by this plugin assumes that the css variable declarations will be passed through the same stylis processor BEFORE
  any css that uses them.  The plugin tries its best to backwards apply variable definitions based on parent scope (but mileage will vary if
  making complex variable declarations).
 
@@ -15,7 +15,7 @@ The solution put forth by this plugin, assumes that the css variable declaration
 
 ### Defaults:
 
-By default, this plugin only applies when a window is present and that window does not support css variables.  (See code to understand the test).
+By default, this plugin applies any time stylis is invoked.
 
 __Raw Stylis V4__
 ```javascript
@@ -45,7 +45,7 @@ export const myCache = createCache({
 
 ### Finer Control
 
-Since this plugin is effectively undoing modern CSS for the sake of IE11, a few options are supplied to allow you to minimize the scope at which this plugin is applied.
+Since this plugin is effectively undoing modern CSS for the sake of IE11, a few options are supplied to allow you to minimize the scope at which this plugin is applied or maximize its replacement stategy.
 
 See \_\_tests__ for examples.
 
@@ -53,30 +53,63 @@ See \_\_tests__ for examples.
 
     Given the tricky nature of Server Side Rendering and determining if a browser supports css variables on server, this is left as an open-ended problem for the user to solve.
 
-    __Note:__ This means that this plugin will apply itself only on client-side by default - which should work fine in the emotion system, with only a delayed display of css attributes on these less-supported clients.
+    __Note:__ In certain SSR frameworks, you may discover that your desire to evaluate only on the client-side will not work if the server side render is the only side responsible for the css render (see example application).
 
-__Examples of applying this to every render__
+__Examples of applying this only on client-side__
 
 __Raw Stylis V4__
 ```javascript
-import { serialize, compile, middleware, stringify } from 'stylis'
-import createRGBAHexToFuncMiddleware from('rgba-hex-to-func';
+import { serialize, compile, middleware, stringify } from 'stylis';
+import createRGBAHexToFuncMiddleware from 'rgba-hex-to-func';
 
 // create a middleware and apply it to your middleware chain
 serialize(compile('.SomeCssClass { color: #ffffffff; }'), middleware([createRGBAHexToFuncMiddleware({
-    applyWhen: () => true,
+    applyWhen: () => typeof window !== 'undefined' && !window?.CSS?.supports?.('color', 'var(--fake-var)'),
+}), stringify]));
+```
+
+__EmotionJS__
+```javascript
+import createCache from '@emotion/cache';
+import createRGBAHexToFuncMiddleware from 'rgba-hex-to-func';
+
+export const myCache = createCache({
+  key: 'my-prefix-key',
+  stylisPlugins: [
+    createRGBAHexToFuncMiddleware({
+      applyWhen: () => typeof window !== 'undefined' && !window?.CSS?.supports?.('color', 'var(--fake-var)'),
+    }),
+  ]
+});
+```
+
+* searchDocument - If set to true, this makes the plugin (when run on the clientside) search for style tags with variable definitions on first call of stylis.  While this might seem worthless, if you are using a render strategy that provides variable declarations in a separate and disjoint style tag from the main body of code running stylis, this will at least consume the separate css variables, process them, and then apply them back over variable calls.
+
+Note: If you're doing this, try to rethink the css solution as this includes dom-searching and parsing before applying the rest of stylis runs.
+
+__Examples of applying search document logic__
+
+__Raw Stylis V4__
+```javascript
+import { serialize, compile, middleware, stringify } from 'stylis';
+import createRGBAHexToFuncMiddleware from 'rgba-hex-to-func';
+
+// create a middleware and apply it to your middleware chain
+serialize(compile('.SomeCssClass { color: #ffffffff; }'), middleware([createRGBAHexToFuncMiddleware({
+    searchDocument: true,
 }), stringify]));
 ```
 
 __EmotionJS__
 ```javascript
 import createCache from '@emotion/cache'
+import createRGBAHexToFuncMiddleware from 'rgba-hex-to-func';
 
 export const myCache = createCache({
   key: 'my-prefix-key',
   stylisPlugins: [
     createRGBAHexToFuncMiddleware({
-        applyWhen: () => true,
+        searchDocument: true,
     }),
   ]
 });

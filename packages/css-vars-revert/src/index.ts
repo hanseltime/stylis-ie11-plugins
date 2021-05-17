@@ -16,8 +16,9 @@ export interface PluginOptions {
     searchDocument?: boolean;
 }
 
+// Default case: always apply this, since we can't detect SSR easily or trust the SSR doesn't block rerender on browser
 function defaultApplyWhen() : boolean {
-    return typeof window !== 'undefined' && !window?.CSS?.supports?.('color', 'var(--fake-var)');
+    return true;
 }
 
 export default function createCssVarsRevert(options?: PluginOptions) : Middleware {
@@ -56,6 +57,7 @@ export default function createCssVarsRevert(options?: PluginOptions) : Middlewar
                     const varValue = specificScope.get(varFnc[1]);
                     if (varValue) {
                         element.value = element.value.replace(varFnc[0], varValue);
+                        element.children = (element.children as string).replace(varFnc[0], varValue);
                         found = true;
                         break;
                     }
@@ -89,7 +91,7 @@ export default function createCssVarsRevert(options?: PluginOptions) : Middlewar
                 }
             }
         } else if (element.type === RULESET) {
-            // Note: this is necessary to do nested drilling - see stylis strigify plugin
+            // Note: this is necessary to do nested calls - see stylis stringify plugin
             serialize(element.children as any, callback);
         }
     };
