@@ -1,6 +1,6 @@
 {
   "name": "css-vars-revert",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Stylis plugin to revert any css variables that might be present (mainly in need of supporting ie11)",
   "keywords": [
     "ie11",
